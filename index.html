@@ -16,11 +16,22 @@
       </div>
     </div>
 
-    <div class="container">
-      <p>Here is static content in the web page. You'll notice that it gets
-        replaced by our app as soon as we start it.
-      </p>
+    <div id="app-container">
+      <div id="main-region" class="container">
+        <p>Here is static content in the web page. You'll notice that it gets
+          replaced by our app as soon as we start it.
+        </p>
+      </div>
     </div>
+
+    <span id="static-view" class="instruction">
+      <p>This is text that was rendered by our Marionette app.</p>
+    </span>
+
+    <script type="text/template" id="different-static-template">
+      <p>Text from a different template.....</p>
+    </script>
+
 
     <script src="./assets/js/vendor/jquery-3.0.0.js"></script>
     <script src="./assets/js/vendor/json2.js"></script>
@@ -28,5 +39,30 @@
     <script src="./assets/js/vendor/backbone.js"></script>
     <script src="./assets/js/vendor/backbone.marionette.js"></script>
 
+    <script type="text/javascript">
+      var ContactManager = new Marionette.Application();
+
+      ContactManager.StaticView = Marionette.ItemView.extend({
+        id: "static-view",
+        tagName: "span",
+        className: "instruction",
+        template: "#static-template"
+      });
+
+      ContactManager.on("start", function(){
+        var staticView = new ContactManager.StaticView({
+          id: "static-view",
+          tagName: "span",
+          className: "instruction"
+        });
+      });
+
+      ContactManager.on("start", function(){
+        var StaticView = new ContactManager.StaticView();
+        StaticView.render();
+      });
+
+      ContactManager.start();
+    </script>
   </body>
 </html>
