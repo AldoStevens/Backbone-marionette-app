@@ -38,7 +38,11 @@
     <script type="text/javascript">
       var ContactManager = new Marionette.Application();
 
-      ContactManager.Contact = Backbone.Model.extend({});
+      ContactManager.Contact = Backbone.Model.extend({
+        defaults: {
+          firstName: " "
+        }
+      });
 
       ContactManager.ContactView = Marionette.ItemView.extend({
         template: "#contact-template"
