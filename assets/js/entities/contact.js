@@ -28,4 +28,8 @@ ContactManager.module("Entities", function(Entities, ContactManager,
       return contacts;
     }
   };
+
+  ContactManager.reqres.setHandler("contact:entities", function(){
+    return API.getContactEntities();
+  })
 });
