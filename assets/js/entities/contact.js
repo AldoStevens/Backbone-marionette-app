@@ -1,11 +1,18 @@
 ContactManager.module("Entities", function(Entities, ContactManager,
   Backbone, Marionette, $,_){
-  Entities.Contact = Backbone.Model.extend({});
+  Entities.Contact = Backbone.Model.extend({
+    urlRoot: "contacts"
+  });
+
+  Entities.configureStorage("ContactManager.Entities.Contact");
 
   Entities.ContactCollection = Backbone.Collection.extend({
+    url: "contacts",
     model: Entities.Contact,
     comparator: "firstName"
   });
+
+  Entities.configureStorage("ContactManager.Entities.ContactCollection");
 
   var contacts;
 
@@ -18,18 +25,52 @@ ContactManager.module("Entities", function(Entities, ContactManager,
       { id: 3, firstName: "Charlie", lastName: "Campbell",
         phoneNumber: "555-0129" }
     ]);
+    contacts.forEach(function(contact){
+      contact.save();
+    });
+    return contacts.models;
   };
 
   var API = {
     getContactEntities: function(){
-      if(contacts === undefined){
-        initializeContacts();
-      }
-      return contacts;
+      var contacts = new Entities.ContactCollection();
+      var defer = $.Deferred();
+      contacts.fetch({
+        success: function(data){
+          defer.resolve(data);
+        }
+      });
+      var promise = defer.promise();
+      $.when(promise).done(function(fetchedContacts){
+        if(fetchedContacts.length === 0){
+          var models = initializeContacts();
+        }
+      });
+      return promise;
+    },
+
+    getContactEntity: function(contactId){
+      var contact = new Entities.Contact({id: contactId});
+      var defer = $.Deferred();
+      setTimeout(function(){
+        contact.fetch({
+          success: function(data){
+            defer.resolve(data);
+          },
+          error: function(data){
+            defer.resolve(undefined);
+          }
+        });
+      }, 2000);
+      return defer.promise();
     }
   };
 
   ContactManager.reqres.setHandler("contact:entities", function(){
     return API.getContactEntities();
   })
+
+  ContactManager.reqres.setHandler("contact:entity", function(id){
+    return API.getContactEntity(id);
+  });
 });

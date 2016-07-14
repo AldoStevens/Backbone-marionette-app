@@ -16,23 +16,23 @@
       </div>
     </div>
 
-      <div id="main-region" class="container">
-        <p>Here is static content in the web page. You'll notice that it gets
-          replaced by our app as soon as we start it.
-        </p>
-      </div>
+    <div id="main-region" class="container">
+      <p>Here is static content in the web page. You'll notice that it gets
+        replaced by our app as soon as we start it.
+      </p>
+    </div>
 
-      <script type="text/template" id="contact-list">
-        <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </script>
+    <script type="text/template" id="contact-list">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </script>
 
     <script type="text/template" id="contact-list-item">
       <td><%- firstName %></td>
@@ -60,15 +60,26 @@
         <div class="alert alert-error"> This contact doesn't exit !</div>
     </script>
 
+      <!-- the template for the loader/ loading view -->
+    <script type="text/template" id="loading-view">
+      <h1>Artificial Loading Delay</h1>
+      <p>Data loading is delayed to demonstrate using a loading view.</p>
+      <div id="spinner"></div>
+    </script>
+
     <script src="./assets/js/vendor/jquery-3.0.0.js"></script>
     <script src="./assets/js/vendor/json2.js"></script>
     <script src="./assets/js/vendor/underscore.js"></script>
     <script src="./assets/js/vendor/backbone.js"></script>
+    <script src="./assets/js/vendor/backbone.localstorage.js"></script>
     <script src="./assets/js/vendor/backbone.marionette.js"></script>
+    <script src="./assets/js/vendor/spin.js"></script>
+    <script src="./assets/js/vendor/spin.jquery.js"></script>
     <script src="./assets/js/app.js"></script>
+    <script src="./assets/js/apps/config/storage/local-storage.js"></script>
     <script src="./assets/js/entities/contact.js"></script>
+    <script src="./assets/js/common/views.js"></script>
     <script src="./assets/js/apps/contacts/contacts_app.js"></script>
-
     <script src="./assets/js/apps/contacts/list/list_view.js"></script>
     <script src="./assets/js/apps/contacts/list/list_controller.js"></script>
     <script src="./assets/js/apps/contacts/show/show_view.js"></script>
