@@ -15,6 +15,10 @@ Backbone, Marionette, $, _){
           contactView = new Show.Contact({
             model: contact
           });
+
+          contactView.on("contact:edit", function(contact){
+            ContactManager.trigger("contact:edit", contact.get("id"));
+          });
         }
         else{
           contactView = new Show.MissingContact();
